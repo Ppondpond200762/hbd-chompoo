@@ -1,0 +1,133 @@
+/* ===== Theme tokens: Orange · Peach · White ===== */
+:root {
+  --cream: #fffaf4;
+  --peach-50: #fff3ea;
+  --peach-100: #ffe4d2;
+  --peach-200: #ffcfb1;
+  --peach-300: #ffb48a;
+  --coral: #ff8a5c;
+  --orange: #f97c3c;
+  --deep: #e2602a;
+  --ink: #7a3517;
+  --border: rgba(255, 152, 110, 0.45);
+}
+
+body {
+  color: var(--ink);
+  background: linear-gradient(160deg, #fffdf9 0%, #fff4ea 35%, #ffe6d5 70%, #ffd9c2 100%);
+  background-size: 200% 200%;
+  background-attachment: fixed;
+  animation: bgShift 20s ease infinite;
+}
+@keyframes bgShift { 0%,100% { background-position: 0% 0%; } 50% { background-position: 100% 100%; } }
+
+.glass {
+  background: rgba(255, 252, 247, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid var(--border);
+  box-shadow: 0 20px 50px -18px rgba(249, 124, 60, 0.35);
+}
+.text-gradient {
+  background: linear-gradient(90deg, #ff9a6b, #f97c3c, #ffb48a);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+
+/* Pages */
+.page { display: none; }
+.page.active { display: block; animation: pageIn .7s cubic-bezier(.2,.9,.3,1.2) both; }
+@keyframes pageIn { from { opacity: 0; transform: translateY(30px) scale(.96); } to { opacity: 1; transform: none; } }
+
+/* Buttons */
+.btn-main {
+  padding: 1.1rem 1.5rem; border-radius: 999px; font-weight: 700; color: #fff;
+  background: linear-gradient(90deg, #ffb48a, #ff8a5c, #f97c3c, #ffb48a);
+  background-size: 300% 100%;
+  box-shadow: 0 10px 25px -6px rgba(249, 124, 60, .55);
+  animation: shine 4s linear infinite;
+  transition: transform .2s, box-shadow .2s;
+}
+.btn-main:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 16px 30px -6px rgba(249, 124, 60, .7); }
+.btn-main:active { transform: scale(.97); }
+@keyframes shine { to { background-position: 300% 0; } }
+
+.btn-soft {
+  padding: .8rem 1.6rem; border-radius: 999px; font-weight: 600; color: var(--deep);
+  background: rgba(255, 252, 247, .75); border: 1.5px solid var(--border);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: all .2s;
+}
+.btn-soft:hover { background: var(--peach-100); transform: translateY(-2px); }
+
+/* Quiz */
+.photo-frame {
+  width: 100%; height: min(52vh, 460px); border-radius: 1.25rem; overflow: hidden;
+  background: rgba(255, 250, 244, .8);
+  border: 1.5px solid var(--border);
+  box-shadow: inset 0 0 0 6px rgba(255,255,255,.8), 0 10px 25px -10px rgba(249, 124, 60, .4);
+}
+@media (max-width: 640px) { .photo-frame { height: 40vh; } }
+
+.q-text-box {
+  background: rgba(255, 252, 247, .7);
+  border: 1.5px solid var(--border);
+  border-radius: 1rem;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  padding: .75rem 1rem;
+}
+
+.choice {
+  display: flex; align-items: center; gap: .75rem; text-align: left;
+  padding: .9rem 1rem; border-radius: 1rem; font-weight: 600; font-size: 1rem;
+  background: rgba(255, 252, 247, .78); color: var(--ink);
+  border: 1.5px solid var(--border);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: all .2s ease; min-height: 3.5rem;
+  -webkit-tap-highlight-color: transparent;
+}
+.choice:hover { border-color: var(--coral); background: #fff; transform: translateY(-2px); box-shadow: 0 8px 18px -6px rgba(249,124,60,.45); }
+.choice:active { background: var(--peach-200); }
+.choice .badge {
+  flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 999px; display: grid; place-items: center;
+  color: #fff; font-size: .9rem; transition: all .2s;
+}
+.choice.picked {
+  background: linear-gradient(90deg, #ff9a6b, #f97c3c); color: #fff; border-color: transparent;
+  transform: scale(.97); box-shadow: 0 10px 24px -6px rgba(249,124,60,.65);
+}
+.choice.picked .badge { background: #fff !important; color: var(--deep); }
+
+.quiz-card.leave { animation: cardOut .3s ease forwards; }
+.quiz-card.enter { animation: cardIn .45s cubic-bezier(.2,.9,.3,1.2) both; }
+@keyframes cardOut { to { opacity: 0; transform: translateX(-40px) rotate(-3deg); } }
+@keyframes cardIn { from { opacity: 0; transform: translateX(40px) rotate(3deg); } to { opacity: 1; transform: none; } }
+
+.progress-track { background: rgba(255,255,255,.7); border: 1px solid var(--border); }
+.progress-bar { background: linear-gradient(90deg, #ffcfb1, #ff8a5c, #f97c3c); }
+
+/* Video */
+.video-wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; max-height: 78vh; border-radius: 1rem; overflow: hidden; background: #000; }
+.video-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* ===== Daisies (background layer, never blocks clicks) ===== */
+#daisies { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.daisy { position: absolute; filter: drop-shadow(0 6px 10px rgba(249,124,60,.18)); opacity: .9; }
+.daisy svg { width: 100%; height: 100%; display: block; }
+.daisy.bounce { animation: daisyBounce 3.6s ease-in-out infinite; }
+.daisy.pulse  { animation: daisyPulse 4.2s ease-in-out infinite; }
+.daisy.spin svg { animation: daisySpin 24s linear infinite; }
+@keyframes daisyBounce { 0%,100% { transform: translateY(0) rotate(var(--r,0deg)); } 50% { transform: translateY(-14px) rotate(calc(var(--r,0deg) + 6deg)); } }
+@keyframes daisyPulse  { 0%,100% { transform: scale(1) rotate(var(--r,0deg)); } 50% { transform: scale(1.1) rotate(var(--r,0deg)); } }
+@keyframes daisySpin   { to { transform: rotate(360deg); } }
+@media (max-width: 640px) { .daisy.hide-sm { display: none; } }
+@media (prefers-reduced-motion: reduce) { .daisy, .daisy svg, body { animation: none !important; } }
+
+/* Floaters & confetti */
+.floater { position: absolute; bottom: -10%; animation: floatUp linear infinite; opacity: .6; }
+@keyframes floatUp { to { transform: translateY(-120vh) rotate(360deg); } }
+.confetti { position: fixed; top: -20px; z-index: 50; pointer-events: none; animation: fall linear forwards; }
+@keyframes fall { to { transform: translateY(110vh) rotate(720deg); opacity: .8; } }
+
+.animate-bounce-slow { animation: bounceSlow 2.4s ease-in-out infinite; display: inline-block; }
+@keyframes bounceSlow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+.animate-heartbeat { animation: heartbeat 1.3s ease-in-out infinite; display: inline-block; }
+@keyframes heartbeat { 0%,100% { transform: scale(1); } 15% { transform: scale(1.2); } 30% { transform: scale(1); } 45% { transform: scale(1.15); } }
